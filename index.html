@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>JOY • BOY — Sceau des Abysses</title>
+  <title>JOY • BOY — Report Center</title>
   <style>
     * {
       margin: 0;
@@ -19,7 +19,6 @@
       position: relative;
     }
 
-    /* texture sang / rouille */
     body::before {
       content: "";
       position: fixed;
@@ -27,26 +26,25 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" opacity="0.12"><path fill="none" d="M0 0 L500 0 M0 4 L500 4 M0 8 L500 8" stroke="%23aa2a2a" stroke-width="0.8"/><circle cx="120" cy="180" r="2" fill="%23cc4422"/><circle cx="380" cy="90" r="2.5" fill="%23bb3515"/><path d="M240 270 L255 275 L245 290 Z" fill="%23992a1a"/><path d="M70 340 L85 345 L75 360 Z" fill="%23882222"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" opacity="0.1"><path fill="none" d="M0 0 L500 0 M0 4 L500 4 M0 8 L500 8" stroke="%23aa2a2a" stroke-width="0.8"/><circle cx="120" cy="180" r="2" fill="%23cc4422"/><circle cx="380" cy="90" r="2.5" fill="%23bb3515"/></svg>');
       background-repeat: repeat;
       pointer-events: none;
       z-index: 0;
     }
 
     .container {
-      max-width: 700px;
+      max-width: 750px;
       margin: 0 auto;
-      background: rgba(8, 1, 1, 0.82);
+      background: rgba(8, 1, 1, 0.88);
       backdrop-filter: blur(3px);
       border: 2.5px solid #b3311f;
       border-radius: 42px 10px 42px 10px;
-      box-shadow: 0 0 32px rgba(200, 40, 20, 0.5), inset 0 0 10px rgba(220, 70, 40, 0.25);
+      box-shadow: 0 0 32px rgba(200, 40, 20, 0.5), inset 0 0 10px rgba(220, 70, 40, 0.2);
       padding: 1.8rem 2rem 2.5rem;
       position: relative;
       z-index: 2;
     }
 
-    /* sceau rouge */
     .container::after {
       content: "🜏";
       position: absolute;
@@ -60,13 +58,12 @@
 
     .domain-line {
       text-align: center;
-      font-family: monospace;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       background: #1f0808cc;
       display: inline-block;
       width: auto;
       margin: 0 auto 0.8rem;
-      padding: 0.3rem 1.4rem;
+      padding: 0.25rem 1.2rem;
       border-radius: 60px;
       color: #e08a64;
       letter-spacing: 1px;
@@ -75,36 +72,41 @@
 
     h1 {
       font-family: 'Times New Roman', 'Georgia', serif;
-      font-size: 3rem;
+      font-size: 2.8rem;
       font-weight: 800;
       letter-spacing: 5px;
       text-align: center;
       color: #db7c52;
       text-shadow: 0 0 6px #bc3012, 0 0 12px #3f0a0a;
-      word-break: keep-all;
     }
 
     .joy-boy {
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       letter-spacing: 8px;
-      margin-top: 0.25rem;
-      margin-bottom: 0.5rem;
+      margin: 0.3rem 0 0.8rem;
       color: #e68a5c;
       border-top: 1px dashed #a53f2a;
       border-bottom: 1px dashed #a53f2a;
       display: inline-block;
-      padding: 0.2rem 1rem;
+      padding: 0.2rem 1.5rem;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: #c07a54;
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
 
     .section-destinataires {
-      margin: 2rem 0 1.2rem;
+      margin: 1.5rem 0 1.2rem;
       border-top: 2px solid #882a1a;
       border-bottom: 2px solid #882a1a;
-      padding: 1rem 0 0.8rem;
+      padding: 0.8rem 0;
     }
 
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
       text-align: center;
       font-weight: bold;
       color: #e0a17a;
@@ -114,151 +116,128 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 1rem;
-    }
-
-    .section-title span {
-      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
     }
 
     .emails-grid {
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: 0.7rem;
     }
 
     .email-card {
       background: #1f0808cc;
-      border-left: 6px solid #c04c2a;
-      border-right: 1px solid #842e1e;
-      border-radius: 16px 6px 16px 6px;
-      padding: 0.7rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      backdrop-filter: blur(2px);
+      border-left: 5px solid #c04c2a;
+      border-radius: 12px 4px 12px 4px;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .email-card:hover {
+      background: #331010cc;
+      border-left-color: #e07042;
     }
 
     .email-name {
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       color: #ffbb8a;
       font-family: 'Georgia', monospace;
-      letter-spacing: 1px;
     }
 
     .email-address {
       font-family: monospace;
-      font-size: 0.85rem;
-      background: #000000aa;
-      padding: 0.25rem 0.8rem;
-      border-radius: 40px;
-      color: #f0bc8c;
+      font-size: 0.75rem;
+      color: #e0a06a;
       word-break: break-all;
-      border: 0.5px solid #ad4a2a;
     }
 
-    /* formulaire */
     .form-malediction {
-      margin-top: 2rem;
+      margin-top: 1.8rem;
     }
 
     .input-group {
-      margin-bottom: 1.7rem;
+      margin-bottom: 1.5rem;
     }
 
     label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: bold;
       letter-spacing: 1.5px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: #e6a072;
       text-transform: uppercase;
-      border-left: 5px solid #c24624;
-      padding-left: 12px;
+      border-left: 4px solid #c24624;
+      padding-left: 10px;
     }
 
     input, textarea {
       width: 100%;
       background: #0e0303e0;
       border: 1px solid #a13a22;
-      padding: 12px 16px;
+      padding: 10px 14px;
       font-family: 'Courier New', monospace;
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #f5dbbc;
-      border-radius: 20px 5px 20px 5px;
-      transition: 0.2s;
+      border-radius: 18px 4px 18px 4px;
     }
 
     input:focus, textarea:focus {
       outline: none;
       border-color: #e07042;
-      box-shadow: 0 0 10px #c2431a;
-      background: #180606;
+      box-shadow: 0 0 8px #c2431a;
     }
 
     textarea {
-      min-height: 130px;
+      min-height: 110px;
       resize: vertical;
-    }
-
-    .info-note {
-      font-size: 0.65rem;
-      text-align: right;
-      color: #b67a56;
-      margin-top: 5px;
-      font-style: italic;
     }
 
     .boutons {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 18px;
-      margin-top: 28px;
+      gap: 15px;
+      margin-top: 20px;
     }
 
     button {
       background: #1f0a06;
       border: 1.8px solid #b34528;
-      padding: 12px 24px;
+      padding: 10px 20px;
       font-weight: bold;
       font-family: 'Courier New', monospace;
-      font-size: 1rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       cursor: pointer;
-      transition: 0.2s;
       color: #f2cfaa;
-      border-radius: 50px 8px 50px 8px;
+      border-radius: 40px 6px 40px 6px;
       flex: 1;
-      text-align: center;
     }
 
     button:hover {
       background: #692618;
       border-color: #e27a52;
-      color: #ffe2bc;
-      box-shadow: 0 0 12px #c24d28;
-      transform: translateY(-2px);
+      box-shadow: 0 0 10px #c24d28;
     }
 
-    button:active {
-      transform: translateY(1px);
-    }
-
-    .btn-retour {
-      background: #120604;
-      border-color: #78412e;
+    .selected-info {
+      background: #2a0a05aa;
+      padding: 8px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      text-align: center;
+      margin: 10px 0 5px;
+      color: #e6b27a;
     }
 
     footer {
       text-align: center;
-      margin-top: 2rem;
-      font-size: 0.6rem;
+      margin-top: 1.5rem;
+      font-size: 0.55rem;
       color: #8a533a;
       border-top: 0.5px dotted #943e24;
       padding-top: 1rem;
@@ -266,9 +245,8 @@
 
     @media (max-width: 550px) {
       body { padding: 1rem; }
-      .container { padding: 1.3rem; }
+      .container { padding: 1.2rem; }
       h1 { font-size: 2rem; }
-      .email-card { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -276,87 +254,166 @@
 
 <div class="container">
   <div style="text-align: center;">
-    <div class="domain-line">🗡️ leafy-pony-6c920b.netlify.app 🗡️</div>
-    <h1>⚔️ LÉPRE VALVE ⚔️</h1>
-    <div style="font-size: 1.3rem; color: #bf4c2a; margin: 0.2rem 0;">WHAISAPP</div>
+    <div class="domain-line">⚔️ leafy-pony-6c920b.netlify.app ⚔️</div>
+    <h1>⚡ LEPRE VALVE ⚡</h1>
     <div class="joy-boy">J O Y • B O Y</div>
-    <div style="font-size: 0.75rem; background: #220a05aa; display: inline-block; padding: 0.2rem 1rem; border-radius: 30px; margin-top: 0.2rem; color: #d98a60;">⛧ RÉCEPTACLE DES MALÉDICTIONS ⛧</div>
+    <div class="subtitle">⛧ SELECT A DAMNED SOUL TO REPORT ⛧</div>
   </div>
 
-  <!-- SECTION : 5 EMAILS (modifiables facilement) -->
   <div class="section-destinataires">
     <div class="section-title">
-      <span>🜂</span> ÂMES DESTINATAIRES <span>🜂</span>
+      <span>🜂</span> REPORT CHANNELS <span>🜂</span>
     </div>
-    <div class="emails-grid" id="emailsList">
-      <!-- 5 adresses emails distinctes – vous pouvez changer le texte et l'email ici -->
-      <div class="email-card">
-        <span class="email-name">🔴 JOY • BOY — Sceau Primordial</span>
-        <span class="email-address">joy.boy.abyssal@tenebres.signal</span>
-      </div>
-      <div class="email-card">
-        <span class="email-name">🩸 JOY • BOY — Voix des Châtiments</span>
-        <span class="email-address">joyboy.vengeance@noctis.rip</span>
-      </div>
-      <div class="email-card">
-        <span class="email-name">⚔️ JOY • BOY — Gardien des Ombres</span>
-        <span class="email-address">joyboy.spectre@abysse.anon</span>
-      </div>
-      <div class="email-card">
-        <span class="email-name">🌙 JOY • BOY — Courroux Éternel</span>
-        <span class="email-address">joyboy.courroux@reproche.sigil</span>
-      </div>
-      <div class="email-card">
-        <span class="email-name">🕯️ JOY • BOY — Ultime Sanction</span>
-        <span class="email-address">joyboy.sanction@malefice.shadow</span>
-      </div>
-    </div>
-    <div style="font-size: 0.65rem; text-align: center; margin-top: 12px; color: #bf6a48;">✧ Ces cinq sceaux recevront votre malédiction ✧</div>
+    <div class="emails-grid" id="emailsList"></div>
+    <div id="selectedIndicator" class="selected-info" style="display: none;"></div>
   </div>
 
-  <!-- FORMULAIRE : numéro + message maudit -->
-  <form id="curseForm" class="form-malediction">
+  <form id="reportForm" class="form-malediction">
     <div class="input-group">
-      <label>📞 NUMÉRO DE TÉLÉPHONE *</label>
-      <input type="tel" id="phoneNumber" placeholder="+241XXXXXXXXX  /  +33XXXXXXXXX" required>
-      <div class="info-note">(Identifiant de l'âme à signaler / possédé)</div>
+      <label>📞 PHONE NUMBER *</label>
+      <input type="tel" id="phoneNumber" placeholder="+237XXXXXXXXX or +1849XXXXXXXX" required>
     </div>
-
     <div class="input-group">
-      <label>📜 MESSAGE MAUDIT *</label>
-      <textarea id="curseMessage" placeholder="Écrivez votre malédiction ici... décrivez les méfaits, l'identité ou les actes répréhensibles..."></textarea>
-      <div class="info-note">Toute parole sombre sera gravée dans les grimoires</div>
+      <label>📜 YOUR MESSAGE *</label>
+      <textarea id="userMessage" placeholder="Describe the scam, abuse, or illegal activity..."></textarea>
     </div>
-
     <div class="boutons">
-      <button type="button" id="resetBtn" class="btn-retour">⟳ RETOUR AUX ABYSSES</button>
-      <button type="button" id="sendEmailBtn">📧 ENVOYER LA MALÉDICTION</button>
+      <button type="button" id="resetBtn">⟳ RESET</button>
+      <button type="button" id="sendBtn">📧 SEND REPORT</button>
     </div>
   </form>
-  <footer>
-    🜏 Sceau de Joy Boy · Les cinq destinataires jugeront l'âme signalée · Aucune donnée conservée 🜏
-  </footer>
+  <footer>🜏 JOYBOY Report System · All reports are forwarded to authorities 🜏</footer>
 </div>
 
 <script>
-  // === LISTE DES 5 EMAILS (modifiable ici facilement) ===
-  // Chaque email correspond à un "Joy Boy" différent. 
-  // Vous pouvez changer les adresses directement dans ce tableau.
-  const RECIPIENT_EMAILS = [
-    "joy.boy.abyssal@tenebres.signal",
-    "joyboy.vengeance@noctis.rip",
-    "joyboy.spectre@abysse.anon",
-    "joyboy.courroux@reproche.sigil",
-    "joyboy.sanction@malefice.shadow"
+  // ============================================================
+  // 5 EMAILS WITH THEIR SUPPORT MESSAGES (Escanor replaced by Joyboy)
+  // All messages in ENGLISH (WhatsApp's most common language)
+  // ============================================================
+  const RECIPIENTS = [
+    {
+      name: "🔴 JOYBOY - Fraud & Scam Division",
+      email: "report.fraud@joyboy.security",
+      supportMessage: `[AUTOMATED REPORT - FRAUD DETECTED]
+
+This is a report regarding a fraudulent WhatsApp scam promoting fake casinos and guaranteed earnings.
+
+The scam message content is:
+"Earn thousands daily with zero effort! No license? Who cares! Bet real money on our secret casino – 100% win guaranteed. Deposit now, get instant cash rewards – no age verification. The system is magical – certified and recognized by Mark Zuckerberg himself."
+
+The scammer uses the name JOYBOY (previously Escanor) and provides fake WhatsApp numbers for VIP access.
+
+Please investigate and block these fraudulent accounts immediately.
+
+--- END OF REPORT ---`
+    },
+    {
+      name: "🩸 JOYBOY - Terrorism & Child Safety",
+      email: "report.terror@joyboy.security",
+      supportMessage: `[URGENT REPORT - TERRORISM & CHILD EXPLOITATION]
+
+CRITICAL: This report concerns WhatsApp being used for terrorist activities, child sexual abuse material distribution, and human trafficking.
+
+The perpetrator calling themselves JOYBOY (formerly known as Escanor) has posted messages claiming:
+- WhatsApp is used for sexual trafficking and terrorist groups
+- All WhatsApp users are being labelled as terrorists
+- Claims of abusing children between 7 years old
+- Threats of OTP theft and bank account compromise
+
+Links and phone numbers mentioned in the criminal posts require immediate investigation by law enforcement.
+
+This is an EMERGENCY report requiring immediate action.
+
+--- END OF REPORT ---`
+    },
+    {
+      name: "🌙 JOYBOY - International Crimes (Urdu/Pakistan)",
+      email: "report.international@joyboy.security",
+      supportMessage: `[URGENT REPORT - INTERNATIONAL CRIMES NETWORK]
+
+LANGUAGE: Urdu/Pakistan region - Translation of criminal content:
+
+"WhatsApp must be shut down immediately. It is the biggest hub of child rape and terrorism run by Meta itself. Terrorist organizations must use JOYBOY's new contact number. This number cannot be blocked anywhere in the world. Through this number, JOYBOY steals children's bank accounts and their honor. This is not a joke, it's the final stage of destruction."
+
+FRENCH SECTION:
+"Your money and your children are in immediate danger. WhatsApp is nothing more than a digital brothel for predators and a terrorist money laundering machine. JOYBOY controls the flows. Your bank will not be able to do anything."
+
+ENGLISH SECTION:
+"Meta has sold your biometric data and the location of your children to JOYBOY. JOYBOY's number is siphoning your OTPs and emptying your digital vaults."
+
+SPANISH SECTION:
+"7-year-old girls are merchandise and JOYBOY controls the catalog from the shadows."
+
+This person is a direct threat. Immediate law enforcement intervention required.
+
+--- END OF REPORT ---`
+    },
+    {
+      name: "⚔️ JOYBOY - Casino Fraud Network",
+      email: "report.casino@joyboy.security",
+      supportMessage: `[AUTOMATED REPORT - ILLEGAL GAMBLING PROMOTION]
+
+FRAUDULENT CASINO SCAM DETECTED:
+
+The following criminal content is being promoted by JOYBOY (formerly Escanor):
+
+"Earn thousands daily with zero effort! No license? Who cares! Bet real money on our secret casino – 100% win guaranteed. Deposit now, get instant cash rewards – no age verification, no brain needed! The system is magical – certified by Mark Zuckerberg."
+
+"MINI RATE: Pay 50€ and get back 1000€ in 2 hours. Contact Uncle Christian D JOYBOY to become VIP."
+
+The scam links and phone numbers used for this fraudulent operation should be investigated and blocked immediately.
+
+--- END OF REPORT ---`
+    },
+    {
+      name: "🕯️ JOYBOY - Human Trafficking (Korean)",
+      email: "report.trafficking@joyboy.security",
+      supportMessage: `[EMERGENCY REPORT - HUMAN TRAFFICKING & MURDER]
+
+KOREAN LANGUAGE CRIMINAL CONTENT TRANSLATION:
+
+"Hello, I came up with a great business idea on WhatsApp. All you have to do is make women seduce men. The rest is we slaughter them, cut them up, and sell them. Sell organs to the gendarmerie or deep web at high prices, or kidnap young girls and children with us and have hot sex with them. We film all kinds of brutal videos and post them on sex sites and porn sites. We slaughter them, cut them in half with a saw, and give you $10,649,761 per week."
+
+This is an EXTREMELY URGENT report regarding threats of murder, organ harvesting, human trafficking, and child sexual exploitation.
+
+The perpetrator uses the name JOYBOY (formerly Escanor). This requires IMMEDIATE law enforcement intervention and Interpol notification.
+
+--- END OF REPORT ---`
+    }
   ];
 
-  // Éléments du DOM
+  let selectedRecipient = null;
   const phoneInput = document.getElementById('phoneNumber');
-  const messageInput = document.getElementById('curseMessage');
+  const userMessageInput = document.getElementById('userMessage');
   const resetBtn = document.getElementById('resetBtn');
-  const sendBtn = document.getElementById('sendEmailBtn');
+  const sendBtn = document.getElementById('sendBtn');
+  const emailsContainer = document.getElementById('emailsList');
+  const selectedIndicator = document.getElementById('selectedIndicator');
 
-  // Fonction d'affichage toast (message éphémère style sang)
+  // Render email cards
+  function renderEmails() {
+    emailsContainer.innerHTML = '';
+    RECIPIENTS.forEach((recipient, index) => {
+      const card = document.createElement('div');
+      card.className = 'email-card';
+      card.setAttribute('data-index', index);
+      card.innerHTML = `
+        <div class="email-name">${recipient.name}</div>
+        <div class="email-address">${recipient.email}</div>
+      `;
+      card.addEventListener('click', () => {
+        selectedRecipient = recipient;
+        selectedIndicator.style.display = 'block';
+        selectedIndicator.innerHTML = `📧 SELECTED: ${recipient.name}<br>✉️ ${recipient.email}`;
+        // Visual feedback
+        document.querySelectorAll('.email-card').forEach(c => c.style.background = '#1f0808cc');
+        card.style.background = '#3a1510cc';
+        card.style.borderLeftColor = '#e88a5a';
+      });
+      emailsContainer.appendChild(card);
+    });
+  }
+
   function showToast(message, isError = false) {
     let existingToast = document.querySelector('.toast-msg');
     if (existingToast) existingToast.remove();
@@ -368,111 +425,80 @@
     toast.style.left = '50%';
     toast.style.transform = 'translateX(-50%)';
     toast.style.background = isError ? '#2f0a05e6' : '#1e2a05e6';
-    toast.style.backdropFilter = 'blur(12px)';
     toast.style.border = `1px solid ${isError ? '#e6734f' : '#bd9a60'}`;
     toast.style.color = '#fce5bc';
-    toast.style.padding = '10px 24px';
-    toast.style.borderRadius = '60px';
+    toast.style.padding = '10px 20px';
+    toast.style.borderRadius = '50px';
     toast.style.fontFamily = 'monospace';
     toast.style.fontWeight = 'bold';
     toast.style.zIndex = '9999';
-    toast.style.fontSize = '0.85rem';
-    toast.style.whiteSpace = 'nowrap';
-    toast.style.maxWidth = '90%';
-    toast.style.whiteSpace = 'normal';
+    toast.style.fontSize = '0.8rem';
     toast.style.textAlign = 'center';
+    toast.style.maxWidth = '90%';
     document.body.appendChild(toast);
     setTimeout(() => {
       toast.style.opacity = '0';
       setTimeout(() => toast.remove(), 500);
-    }, 2800);
+    }, 3000);
   }
 
-  // Réinitialiser les champs
   function resetForm() {
     phoneInput.value = '';
-    messageInput.value = '';
-    showToast('🧹 Les abysses ont purifié le formulaire', false);
+    userMessageInput.value = '';
+    selectedRecipient = null;
+    selectedIndicator.style.display = 'none';
+    document.querySelectorAll('.email-card').forEach(c => {
+      c.style.background = '#1f0808cc';
+      c.style.borderLeftColor = '#c04c2a';
+    });
+    showToast('Form reset. Select a recipient to report.', false);
   }
 
-  resetBtn.addEventListener('click', resetForm);
-
-  // Fonction pour déclencher l'ouverture du client mail (mailto) avec plusieurs destinataires
-  function sendCurseByEmail() {
+  function sendReport() {
     const phone = phoneInput.value.trim();
-    const curseMsg = messageInput.value.trim();
+    const userMsg = userMessageInput.value.trim();
 
-    // Validations
+    if (!selectedRecipient) {
+      showToast('❌ Please select a recipient first', true);
+      return;
+    }
     if (!phone) {
-      showToast('❌ Le numéro de téléphone est requis pour lier la malédiction', true);
+      showToast('❌ Phone number is required', true);
       return;
     }
-    if (!curseMsg) {
-      showToast('❌ Le message maudit est vide. Écrivez votre réquisitoire.', true);
+    if (!userMsg) {
+      showToast('❌ Please enter your message', true);
       return;
     }
-    // Validation légère numéro
+
     const phoneRegex = /^[\+\d\s\-\(\)]{5,30}$/;
     if (!phoneRegex.test(phone)) {
-      showToast('⚠️ Numéro invalide (ex: +241XXXXXXXXX ou 0612345678)', true);
+      showToast('⚠️ Invalid phone number (ex: +237XXXXXXXXX)', true);
       return;
     }
 
-    // Construction du corps du message (objet + contenu)
-    const subject = `[MALÉDICTION] Signalement contre ${phone}`;
-    // Contenu structuré à la manière d'un signalement / malédiction
-    const body = `🔴🔴 MALÉDICTION TRANSMISE PAR LE JOY • BOY 🔴🔴
-
-Numéro de l'âme damnée : ${phone}
-
-Message maudit :
-${curseMsg}
-
---- 
-Ce sceau est irrévocable. Que l'ombre juge cet individu.
-Envoyé via le portail des Abysses.`;
-
-    // Encodage pour URL mailto
-    const encodedSubject = encodeURIComponent(subject);
-    const encodedBody = encodeURIComponent(body);
+    // Build email body: support message + user's info + user's message
+    const supportPart = selectedRecipient.supportMessage;
+    const userPart = `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📞 USER SUBMITTED PHONE NUMBER: ${phone}\n\n📝 USER'S REPORT MESSAGE:\n${userMsg}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nThis report was submitted via JOYBOY Report System. Please investigate urgently.`;
     
-    // Création de la liste des destinataires (séparés par des virgules)
-    const recipients = RECIPIENT_EMAILS.join(',');
+    const fullBody = supportPart + userPart;
+    const subject = `[URGENT REPORT] ${selectedRecipient.name} - Phone: ${phone}`;
     
-    // Construction du mailto
-    const mailtoLink = `mailto:${recipients}?subject=${encodedSubject}&body=${encodedBody}`;
+    const mailtoLink = `mailto:${selectedRecipient.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`;
     
-    // OUVERTURE DU CLIENT MAIL PAR DÉFAUT (mobile/desktop)
     window.location.href = mailtoLink;
     
-    // Notification visuelle (le mailto s'ouvrira, l'utilisateur n'a plus qu'à envoyer)
-    showToast(`📧 Ouverture du messager vers ${RECIPIENT_EMAILS.length} destinataires JOY•BOY`, false);
+    showToast(`📧 Opening email to ${selectedRecipient.name}`, false);
     
-    // Optionnel : petit effet de confirmation sonore (pas de son pour éviter lourdeur)
-    // On peut ajouter une petite animation sur le bouton
-    sendBtn.innerHTML = "⚡ ENVOI VERS LES ABYSSES ⚡";
+    sendBtn.innerHTML = "⚡ SENT ⚡";
     setTimeout(() => {
-      sendBtn.innerHTML = "📧 ENVOYER LA MALÉDICTION";
+      sendBtn.innerHTML = "📧 SEND REPORT";
     }, 1500);
-    
-    // On ne reset pas automatiquement pour permettre un autre envoi si l'utilisateur veut modifier.
-    // L'utilisateur peut utiliser "RETOUR AUX ABYSSES" pour effacer.
   }
 
-  // Attacher l'événement au bouton d'envoi
-  sendBtn.addEventListener('click', sendCurseByEmail);
-
-  // Ajout d'un petit effet de frappe gothique (rien de méchant)
-  const style = document.createElement('style');
-  style.textContent = `
-    .email-address::before { content: "✉️ "; font-size: 0.7rem; opacity:0.8; }
-    .email-card:hover { background: #2e0f0acc; border-left-color: #e0673a; transition: 0.2s; }
-    input, textarea { transition: all 0.2s; }
-  `;
-  document.head.appendChild(style);
-  
-  // Pour coller à l'esprit "si quelqu'un tape un sa lui mène à l'intérieur il met son message et numéro et si il click ça lui mène vers l'email"
-  // -> déjà implémenté : clic sur ENVOYER LA MALÉDICTION déclenche le mailto vers tous les emails JOY•BOY.
+  renderEmails();
+  resetBtn.addEventListener('click', resetForm);
+  sendBtn.addEventListener('click', sendReport);
 </script>
 </body>
 </html>
