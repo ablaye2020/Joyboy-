@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Lépre des Abysses - Signaler une âme damnée</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, #0a0205 0%, #000000 100%);
+      font-family: 'Courier New', 'Lucida Console', 'Monaco', monospace;
+      color: #d9c8a9;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* texture ancienne / parchemin sombre */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" opacity="0.08"><path fill="none" d="M0 0 L400 0 M0 2 L400 2 M0 4 L400 4" stroke="%238b5a2b" stroke-width="0.5"/><path d="M10 10 L30 10 M55 25 L80 25" stroke="%23a76e3e" stroke-width="0.8"/><circle cx="120" cy="50" r="1.2" fill="%23945e2e"/><circle cx="300" cy="180" r="1.5" fill="%238a4f2c"/><path d="M200 120 L210 125 L205 135 Z" fill="%237a3e1c"/></svg>');
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(1.5px);
+      border: 2px solid #511c1c;
+      box-shadow: 0 0 28px rgba(110, 20, 20, 0.5), inset 0 0 8px rgba(220, 70, 40, 0.2);
+      padding: 2rem 2rem 2.8rem;
+      border-radius: 32px 12px 32px 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ruban gothique */
+    .container::after {
+      content: "⚰️";
+      position: absolute;
+      bottom: -18px;
+      right: 24px;
+      font-size: 2rem;
+      opacity: 0.5;
+      transform: rotate(5deg);
+      pointer-events: none;
+    }
+
+    h1 {
+      font-family: 'Times New Roman', 'Georgia', serif;
+      font-size: 2.8rem;
+      letter-spacing: 6px;
+      text-align: center;
+      color: #bc9a6c;
+      text-shadow: 0 0 4px #a1220a, 0 0 12px #3a0a0a;
+      border-bottom: 1px solid #792e2e;
+      display: inline-block;
+      width: auto;
+      margin: 0 auto 0.6rem;
+      padding-bottom: 0.2rem;
+    }
+
+    .subdomain {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #9f7e54;
+      background: #110a05aa;
+      display: inline-block;
+      width: auto;
+      margin: 0 auto 1.4rem;
+      padding: 0.25rem 1.2rem;
+      border-radius: 60px;
+      letter-spacing: 1px;
+      font-family: monospace;
+      border: 0.5px solid #6f3a2a;
+    }
+
+    .titre-sinistre {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 0.5rem 0 0.2rem;
+      color: #dbb879;
+      text-transform: uppercase;
+      word-break: keep-all;
+    }
+
+    .sous-titre {
+      text-align: center;
+      font-family: 'Segoe UI', 'Courier New', monospace;
+      font-size: 0.9rem;
+      background: #1e0c0c77;
+      padding: 8px 12px;
+      border-radius: 80px;
+      width: fit-content;
+      margin: 0.8rem auto 1.8rem auto;
+      border-left: 4px solid #b1472c;
+      border-right: 4px solid #b1472c;
+    }
+
+    /* sélection des âmes (damnées) */
+    .section-damnees {
+      margin: 2rem 0 1.5rem;
+      border-top: 1px dashed #6e2d2d;
+      border-bottom: 1px dashed #6e2d2d;
+      padding: 1rem 0;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 1.2rem;
+      color: #e6bf86;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .section-title span {
+      font-size: 1.8rem;
+    }
+
+    .damnes-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ame-card {
+      background: #0f0505dd;
+      border: 1.2px solid #803a2a;
+      border-radius: 48px 12px 48px 12px;
+      padding: 0.9rem 1.2rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    .ame-card:hover {
+      background: #2b1212cc;
+      border-color: #bc6442;
+      transform: scale(0.99);
+      box-shadow: 0 0 10px #ac3f1f66;
+    }
+
+    .ame-nom {
+      font-size: 1.35rem;
+      font-weight: bold;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      font-family: 'Georgia', monospace;
+    }
+
+    .ame-titre {
+      color: #ffc285;
+      letter-spacing: 1px;
+    }
+
+    .ame-email {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #c0a26b;
+      background: #2f150e6b;
+      padding: 0.2rem 0.7rem;
+      border-radius: 24px;
+      word-break: break-all;
+    }
+
+    .selected-badge {
+      font-size: 0.75rem;
+      background: #861f1f;
+      display: inline-block;
+      padding: 0.15rem 0.65rem;
+      border-radius: 20px;
+      color: #ffcf9a;
+      margin-left: 12px;
+    }
+
+    /* formulaire */
+    .form-malediction {
+      margin-top: 2rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.6rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+      color: #cfb27c;
+      text-transform: uppercase;
+      border-left: 4px solid #963c2a;
+      padding-left: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #110805e6;
+      border: 1px solid #6c3022;
+      padding: 12px 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      color: #f5e2be;
+      border-radius: 18px 6px 18px 6px;
+      transition: 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #c07a52;
+      box-shadow: 0 0 12px #9c3e1e;
+      background: #1c0c08;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .info-anonyme {
+      font-size: 0.7rem;
+      text-align: right;
+      color: #ab8056;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .boutons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 25px;
+    }
+
+    button {
+      background: #1f0f0b;
+      border: 1.6px solid #853a24;
+      padding: 12px 24px;
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #edd6aa;
+      border-radius: 40px 8px 40px 8px;
+      flex: 1;
+      text-align: center;
+    }
+
+    button:hover {
+      background: #572419;
+      border-color: #cb7852;
+      color: #fff0cf;
+      box-shadow: 0 0 8px #b4552a;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-retour {
+      background: #0c0604;
+      border-color: #5c3524;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2f0d08e6;
+      backdrop-filter: blur(12px);
+      border: 1px solid #d98f62;
+      color: #fadfac;
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-family: monospace;
+      font-weight: bold;
+      z-index: 999;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      pointer-events: none;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.65rem;
+      color: #674a32;
+      border-top: 0.5px dotted #662d1d;
+      padding-top: 1.2rem;
+    }
+
+    .selected-email-display {
+      background: #00000099;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      text-align: center;
+      margin: 12px 0 5px;
+      display: inline-block;
+      width: auto;
+    }
+
+    @media (max-width: 550px) {
+      body { padding: 1rem; }
+      .container { padding: 1.3rem; }
+      h1 { font-size: 2rem; }
+      .ame-nom { flex-direction: column; gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div style="text-align: center;">
+    <h1>𓂀 LÉPRE VALVE 𓂀</h1>
+    <div class="subdomain">🌑 leafy-pony-6c920b.netlify.app 🌑</div>
+    <div class="titre-sinistre">WHAISAPP</div>
+    <div class="sous-titre">⚔️ SÉLECTIONNEZ UNE ÂME DAMNÉE POUR TRANSMETTRE VOTRE MALÉDICTION ⚔️</div>
+  </div>
+
+  <!-- 5 esprits / démons avec emails totalement anonymes (fictifs) -->
+  <div class="section-damnees">
+    <div class="section-title">
+      <span>🜏</span> LES CINQ VOIX DES TÉNÈBRES <span>🜏</span>
+    </div>
+    <div class="damnes-grid" id="amesList">
+      <!-- carte 1 -->
+      <div class="ame-card" data-email="ombre.sans.visage@tenebres.signal" data-nom="Spectre de l'Ombre Silencieuse">
+        <div class="ame-nom">
+          <span class="ame-titre">🕯️ Gardien des Murmures</span>
+          <span class="ame-email">ombre.sans.visage@tenebres.signal</span>
+        </div>
+        <div style="font-size:0.7rem; color:#a77c54;">Réceptacle des plaintes éthérées</div>
+      </div>
+      <!-- carte 2 -->
+      <div class="ame-card" data-email="courroux.des.abysses@repertoire.anon" data-nom="Esprit Courroucé des Abysses">
+        <div class="ame-nom">
+          <span class="ame-titre">🐉 Démon du Verdict Noir</span>
+          <span class="ame-email">courroux.des.abysses@repertoire.anon</span>
+        </div>
+        <div style="font-size:0.7rem; color:#a77c54;">Marque les profanateurs</div>
+      </div>
+      <!-- carte 3 -->
+      <div class="ame-card" data-email="ame.sans.repentir@vengeance.spectre" data-nom="Âme sans Repentir">
+        <div class="ame-nom">
+          <span class="ame-titre">🌙 Voix des Châtiments</span>
+          <span class="ame-email">ame.sans.repentir@vengeance.spectre</span>
+        </div>
+        <div style="font-size:0.7rem; color:#a77c54;">L'ire des damnés</div>
+      </div>
+      <!-- carte 4 -->
+      <div class="ame-card" data-email="linceul.cendres@noctis.fall" data-nom="Linceul de Cendres">
+        <div class="ame-nom">
+          <span class="ame-titre">🕸️ Gardien des Petites Âmes</span>
+          <span class="ame-email">linceul.cendres@noctis.fall</span>
+        </div>
+        <div style="font-size:0.7rem; color:#a77c54;">Protecteur des ombres fragiles</div>
+      </div>
+      <!-- carte 5 -->
+      <div class="ame-card" data-email="cri.des.trepasses@abysse.sanctuaire" data-nom="Cri des Trépassés">
+        <div class="ame-nom">
+          <span class="ame-titre">⚰️ Seigneur du Support Spectral</span>
+          <span class="ame-email">cri.des.trepasses@abysse.sanctuaire</span>
+        </div>
+        <div style="font-size:0.7rem; color:#a77c54;">Réceptacle des malédictions ultimes</div>
+      </div>
+    </div>
+    <div id="selectedIndicator" class="selected-email-display" style="display: none;"></div>
+  </div>
+
+  <!-- formulaire de malédiction -->
+  <form id="curseForm" class="form-malediction">
+    <div class="input-group">
+      <label>📞 NUMÉRO DE TÉLÉPHONE *</label>
+      <input type="tel" id="phoneNumber" placeholder="+241XXXXXXXXX / +33XXXXXXXXX" required>
+      <div class="info-anonyme">(identifiant de l'âme à signaler)</div>
+    </div>
+
+    <div class="input-group">
+      <label>📜 MESSAGE MAUDIT *</label>
+      <textarea id="curseMessage" placeholder="Écrivez votre malédiction ici... décrivez les méfaits, l'identité ou les actes répréhensibles..."></textarea>
+      <div class="info-anonyme">Toute parole sombre sera enregistrée dans les grimoires</div>
+    </div>
+
+    <div class="boutons">
+      <button type="button" id="resetBtn" class="btn-retour">⟳ RETOUR AUX ABYSSES</button>
+      <button type="submit" id="submitBtn">🗡️ ENVOYER LA MALÉDICTION 🗡️</button>
+    </div>
+  </form>
+  <footer>
+    ⚔️ Tribunal des Ombres · signalements anonymes · aucunes données conservées ⚔️
+  </footer>
+</div>
+
+<script>
+  // ---------- SÉLECTION DE L'ÂME DAMNÉE (5 emails anonymes) ----------
+  let selectedEmail = null;
+  let selectedName = null;
+  const ameCards = document.querySelectorAll('.ame-card');
+  const selectedIndicator = document.getElementById('selectedIndicator');
+
+  // Fonction pour mettre à jour le visuel de sélection
+  function updateSelectedDisplay() {
+    // retirer tous les badges précédents
+    ameCards.forEach(card => {
+      const existingBadge = card.querySelector('.selected-badge');
+      if(existingBadge) existingBadge.remove();
+      card.style.borderColor = '#803a2a';
+      card.style.background = '#0f0505dd';
+    });
+    if (selectedEmail && selectedName) {
+      const activeCard = Array.from(ameCards).find(card => card.getAttribute('data-email') === selectedEmail);
+      if (activeCard) {
+        activeCard.style.borderColor = '#e6a16a';
+        activeCard.style.background = '#2a1210dd';
+        const badge = document.createElement('span');
+        badge.className = 'selected-badge';
+        badge.innerText = '⚡ DAMNATION SÉLECTIONNÉE';
+        const nomDiv = activeCard.querySelector('.ame-nom');
+        if (!activeCard.querySelector('.selected-badge')) {
+          nomDiv.appendChild(badge);
+        }
+      }
+      selectedIndicator.style.display = 'block';
+      selectedIndicator.innerHTML = `🜄 ESPRIT ÉLU : ${selectedName} — ${selectedEmail} 🜄`;
+    } else {
+      selectedIndicator.style.display = 'none';
+    }
+  }
+
+  // Gestion clic sur chaque carte
+  ameCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const email = card.getAttribute('data-email');
+      const nom = card.getAttribute('data-nom') || card.querySelector('.ame-titre')?.innerText || 'Entité obscure';
+      selectedEmail = email;
+      selectedName = nom;
+      updateSelectedDisplay();
+    });
+  });
+
+  // validation et envoi (simulation style signalement)
+  const form = document.getElementById('curseForm');
+  const phoneInput = document.getElementById('phoneNumber');
+  const messageInput = document.getElementById('curseMessage');
+  const resetBtn = document.getElementById('resetBtn');
+  const submitBtn = document.getElementById('submitBtn');
+
+  // fonction pour afficher des notifications "toast" (message éphémère)
+  function showToast(message, isError = false) {
+    let existingToast = document.querySelector('.toast-msg');
+    if(existingToast) existingToast.remove();
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.innerText = message;
+    if(isError) {
+      toast.style.background = '#440e08e6';
+      toast.style.borderColor = '#e68156';
+      toast.style.color = '#ffc29e';
+    } else {
+      toast.style.background = '#1f360be6';
+      toast.style.borderColor = '#ab9162';
+    }
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 500);
+    }, 2800);
+  }
+
+  // reset complet : efface selection + champs
+  function resetToAbyss() {
+    selectedEmail = null;
+    selectedName = null;
+    updateSelectedDisplay();
+    phoneInput.value = '';
+    messageInput.value = '';
+    showToast('🧿 Les abysses ont tout englouti. Formulaire purifié.', false);
+  }
+
+  resetBtn.addEventListener('click', resetToAbyss);
+
+  // SUBMIT : simulation d'envoi du signalement anonyme
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const phone = phoneInput.value.trim();
+    const curseMsg = messageInput.value.trim();
+
+    if (!selectedEmail) {
+      showToast('❌ Vous devez sélectionner une âme damnée (un des 5 esprits)', true);
+      return;
+    }
+    if (!phone) {
+      showToast('❌ Le numéro de téléphone est requis pour lier la malédiction', true);
+      return;
+    }
+    if (!curseMsg) {
+      showToast('❌ Le message maudit est vide. Écrivez votre réquisitoire.', true);
+      return;
+    }
+    // validation basique numéro (au moins 5 chiffres)
+    const phoneRegex = /^[\+\d\s\-\(\)]{5,25}$/;
+    if (!phoneRegex.test(phone)) {
+      showToast('⚠️ Numéro invalide (ex: +241XXXXXXXXX)', true);
+      return;
+    }
+
+    // Simulation d'envoi de signalement (aucune vraie données persistées)
+    // Dans un vrai projet, on enverrait ces données vers un service backend sécurisé.
+    // Ici c'est purement démonstratif et anonyme: on affiche une confirmation.
+    console.log(`[SIGNALEMENT ANONYME] Destinataire: ${selectedEmail} (${selectedName}) | Téléphone: ${phone} | Message: ${curseMsg}`);
+
+    // Animation de "malédiction lancée"
+    submitBtn.innerHTML = "🕯️ MALÉDICTION ENVOLÉE 🕯️";
+    submitBtn.disabled = true;
+    setTimeout(() => {
+      submitBtn.innerHTML = "🗡️ ENVOYER LA MALÉDICTION 🗡️";
+      submitBtn.disabled = false;
+    }, 2000);
+
+    // message de succès (signalement fictif)
+    showToast(`✅ Malédiction transmise à ${selectedName}. Le signalement erre dans les limbes.`, false);
+    
+    // Optionnel: ne pas reset auto pour permettre autre signalement, mais on peut laisser
+    // Petit effet: ne pas effacer le formulaire pour enchaîner mais garder selection active
+    // Libre à l'utilisateur de reset ou renvoyer.
+    // On peut aussi vider le message et numéro après envoi ? Non, laissons au choix.
+    // Mais pour l'expérience on efface uniquement si l'utilisateur reset. 
+    // Par contre on n'efface pas la sélection.
+    
+    // Bonus: on peut simuler un envoi vers un service webhook mais c'est purement visuel.
+    // Aucune donnée n'est stockée ni exfiltrée, conforme au thème.
+  });
+
+  // s'il n'y a aucune sélection au départ, afficher aucun badge
+  updateSelectedDisplay();
+
+  // ajout d'un petit effet de style: au survol des emails on souligne l'importance
+  const style = document.createElement('style');
+  style.textContent = `
+    .ame-email::before { content: "✉️ "; font-size: 0.7rem; opacity:0.7;}
+    .ame-card { transition: 0.2s; }
+    input, textarea { font-weight: normal; letter-spacing: 0.3px; }
+  `;
+  document.head.appendChild(style);
+
+  // gestion du placeholder plus immersive
+  const textarea = messageInput;
+  textarea.placeholder = "Ex: L'individu +336XXXXXXXX harcèle, menace... qu'une malédiction s'abatte sur son âme numérique...";
+</script>
+</body>
+</html>
