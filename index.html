@@ -39,7 +39,7 @@
       backdrop-filter: blur(3px);
       border: 2.5px solid #b3311f;
       border-radius: 42px 10px 42px 10px;
-      box-shadow: 0 0 32px rgba(200, 40, 20, 0.5), inset 0 0 10px rgba(220, 70, 40, 0.2);
+      box-shadow: 0 0 32px rgba(200, 40, 20, 0.5);
       padding: 1.8rem 2rem 2.5rem;
       position: relative;
       z-index: 2;
@@ -53,7 +53,6 @@
       font-size: 2.6rem;
       opacity: 0.45;
       color: #bc442a;
-      pointer-events: none;
     }
 
     .domain-line {
@@ -66,18 +65,15 @@
       padding: 0.25rem 1.2rem;
       border-radius: 60px;
       color: #e08a64;
-      letter-spacing: 1px;
       border: 0.5px solid #bc4f2e;
     }
 
     h1 {
       font-family: 'Times New Roman', 'Georgia', serif;
       font-size: 2.8rem;
-      font-weight: 800;
-      letter-spacing: 5px;
       text-align: center;
       color: #db7c52;
-      text-shadow: 0 0 6px #bc3012, 0 0 12px #3f0a0a;
+      text-shadow: 0 0 6px #bc3012;
     }
 
     .joy-boy {
@@ -112,10 +108,6 @@
       color: #e0a17a;
       text-transform: uppercase;
       letter-spacing: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
       margin-bottom: 0.8rem;
     }
 
@@ -143,14 +135,12 @@
       font-weight: bold;
       font-size: 0.95rem;
       color: #ffbb8a;
-      font-family: 'Georgia', monospace;
     }
 
     .email-address {
       font-family: monospace;
       font-size: 0.75rem;
       color: #e0a06a;
-      word-break: break-all;
     }
 
     .form-malediction {
@@ -191,7 +181,7 @@
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 100px;
       resize: vertical;
     }
 
@@ -254,16 +244,14 @@
 
 <div class="container">
   <div style="text-align: center;">
-    <div class="domain-line">⚔️ leafy-pony-6c920b.netlify.app ⚔️</div>
+    <div class="domain-line">⚔️ ablaye2020.github.io ⚔️</div>
     <h1>⚡ LEPRE VALVE ⚡</h1>
     <div class="joy-boy">J O Y • B O Y</div>
-    <div class="subtitle">⛧ SELECT A DAMNED SOUL TO REPORT ⛧</div>
+    <div class="subtitle">⛧ SELECT A RECIPIENT — REPORT WILL BE GENERATED AUTOMATICALLY ⛧</div>
   </div>
 
   <div class="section-destinataires">
-    <div class="section-title">
-      <span>🜂</span> REPORT CHANNELS <span>🜂</span>
-    </div>
+    <div class="section-title">🜂 REPORT CHANNELS 🜂</div>
     <div class="emails-grid" id="emailsList"></div>
     <div id="selectedIndicator" class="selected-info" style="display: none;"></div>
   </div>
@@ -271,7 +259,7 @@
   <form id="reportForm" class="form-malediction">
     <div class="input-group">
       <label>📞 PHONE NUMBER *</label>
-      <input type="tel" id="phoneNumber" placeholder="+237XXXXXXXXX or +1849XXXXXXXX" required>
+      <input type="tel" id="phoneNumber" placeholder="+237XXXXXXXXX or +1849XXXXXXXX">
     </div>
     <div class="input-group">
       <label>📜 YOUR MESSAGE *</label>
@@ -279,17 +267,14 @@
     </div>
     <div class="boutons">
       <button type="button" id="resetBtn">⟳ RESET</button>
-      <button type="button" id="sendBtn">📧 SEND REPORT</button>
+      <button type="button" id="sendBtn">📧 GENERATE & SEND REPORT</button>
     </div>
   </form>
-  <footer>🜏 JOYBOY Report System · All reports are forwarded to authorities 🜏</footer>
+  <footer>🜏 JOYBOY Report System · Your report will open in your email app 🜏</footer>
 </div>
 
 <script>
-  // ============================================================
-  // 5 EMAILS WITH THEIR SUPPORT MESSAGES (Escanor replaced by Joyboy)
-  // All messages in ENGLISH (WhatsApp's most common language)
-  // ============================================================
+  // RECIPIENTS WITH SUPPORT MESSAGES (Escanor replaced by Joyboy - ENGLISH)
   const RECIPIENTS = [
     {
       name: "🔴 JOYBOY - Fraud & Scam Division",
@@ -301,11 +286,9 @@ This is a report regarding a fraudulent WhatsApp scam promoting fake casinos and
 The scam message content is:
 "Earn thousands daily with zero effort! No license? Who cares! Bet real money on our secret casino – 100% win guaranteed. Deposit now, get instant cash rewards – no age verification. The system is magical – certified and recognized by Mark Zuckerberg himself."
 
-The scammer uses the name JOYBOY (previously Escanor) and provides fake WhatsApp numbers for VIP access.
+The scammer uses the name JOYBOY and provides fake WhatsApp numbers for VIP access.
 
-Please investigate and block these fraudulent accounts immediately.
-
---- END OF REPORT ---`
+Please investigate and block these fraudulent accounts immediately.`
     },
     {
       name: "🩸 JOYBOY - Terrorism & Child Safety",
@@ -314,39 +297,26 @@ Please investigate and block these fraudulent accounts immediately.
 
 CRITICAL: This report concerns WhatsApp being used for terrorist activities, child sexual abuse material distribution, and human trafficking.
 
-The perpetrator calling themselves JOYBOY (formerly known as Escanor) has posted messages claiming:
+The perpetrator calling themselves JOYBOY has posted messages claiming:
 - WhatsApp is used for sexual trafficking and terrorist groups
 - All WhatsApp users are being labelled as terrorists
-- Claims of abusing children between 7 years old
+- Claims of abusing children
 - Threats of OTP theft and bank account compromise
 
-Links and phone numbers mentioned in the criminal posts require immediate investigation by law enforcement.
-
-This is an EMERGENCY report requiring immediate action.
-
---- END OF REPORT ---`
+This is an EMERGENCY report requiring immediate action.`
     },
     {
-      name: "🌙 JOYBOY - International Crimes (Urdu/Pakistan)",
+      name: "🌙 JOYBOY - International Crimes",
       email: "report.international@joyboy.security",
       supportMessage: `[URGENT REPORT - INTERNATIONAL CRIMES NETWORK]
 
-LANGUAGE: Urdu/Pakistan region - Translation of criminal content:
+The perpetrator JOYBOY has posted criminal content including:
+- Threats of kidnapping and selling children
+- Claims of controlling WhatsApp and Meta infrastructure
+- Threats of bank account theft and OTP interception
+- Promotion of terrorist activities
 
-"WhatsApp must be shut down immediately. It is the biggest hub of child rape and terrorism run by Meta itself. Terrorist organizations must use JOYBOY's new contact number. This number cannot be blocked anywhere in the world. Through this number, JOYBOY steals children's bank accounts and their honor. This is not a joke, it's the final stage of destruction."
-
-FRENCH SECTION:
-"Your money and your children are in immediate danger. WhatsApp is nothing more than a digital brothel for predators and a terrorist money laundering machine. JOYBOY controls the flows. Your bank will not be able to do anything."
-
-ENGLISH SECTION:
-"Meta has sold your biometric data and the location of your children to JOYBOY. JOYBOY's number is siphoning your OTPs and emptying your digital vaults."
-
-SPANISH SECTION:
-"7-year-old girls are merchandise and JOYBOY controls the catalog from the shadows."
-
-This person is a direct threat. Immediate law enforcement intervention required.
-
---- END OF REPORT ---`
+This person is a direct threat. Immediate law enforcement intervention required.`
     },
     {
       name: "⚔️ JOYBOY - Casino Fraud Network",
@@ -355,30 +325,23 @@ This person is a direct threat. Immediate law enforcement intervention required.
 
 FRAUDULENT CASINO SCAM DETECTED:
 
-The following criminal content is being promoted by JOYBOY (formerly Escanor):
+The following criminal content is being promoted by JOYBOY:
+"Earn thousands daily with zero effort! Bet real money on our secret casino – 100% win guaranteed. Deposit now, get instant cash rewards. The system is magical – certified by Mark Zuckerberg."
 
-"Earn thousands daily with zero effort! No license? Who cares! Bet real money on our secret casino – 100% win guaranteed. Deposit now, get instant cash rewards – no age verification, no brain needed! The system is magical – certified by Mark Zuckerberg."
+"Pay 50€ and get back 1000€ in 2 hours. Contact to become VIP."
 
-"MINI RATE: Pay 50€ and get back 1000€ in 2 hours. Contact Uncle Christian D JOYBOY to become VIP."
-
-The scam links and phone numbers used for this fraudulent operation should be investigated and blocked immediately.
-
---- END OF REPORT ---`
+The scam links and phone numbers used should be investigated immediately.`
     },
     {
-      name: "🕯️ JOYBOY - Human Trafficking (Korean)",
+      name: "🕯️ JOYBOY - Human Trafficking",
       email: "report.trafficking@joyboy.security",
       supportMessage: `[EMERGENCY REPORT - HUMAN TRAFFICKING & MURDER]
 
-KOREAN LANGUAGE CRIMINAL CONTENT TRANSLATION:
+CRIMINAL CONTENT DETECTED:
 
-"Hello, I came up with a great business idea on WhatsApp. All you have to do is make women seduce men. The rest is we slaughter them, cut them up, and sell them. Sell organs to the gendarmerie or deep web at high prices, or kidnap young girls and children with us and have hot sex with them. We film all kinds of brutal videos and post them on sex sites and porn sites. We slaughter them, cut them in half with a saw, and give you $10,649,761 per week."
+The perpetrator threatens: kidnapping, organ harvesting, human trafficking, child sexual exploitation, murder, and selling body parts.
 
-This is an EXTREMELY URGENT report regarding threats of murder, organ harvesting, human trafficking, and child sexual exploitation.
-
-The perpetrator uses the name JOYBOY (formerly Escanor). This requires IMMEDIATE law enforcement intervention and Interpol notification.
-
---- END OF REPORT ---`
+This is an EXTREMELY URGENT report. The perpetrator uses the name JOYBOY. This requires IMMEDIATE law enforcement intervention and Interpol notification.`
     }
   ];
 
@@ -390,7 +353,6 @@ The perpetrator uses the name JOYBOY (formerly Escanor). This requires IMMEDIATE
   const emailsContainer = document.getElementById('emailsList');
   const selectedIndicator = document.getElementById('selectedIndicator');
 
-  // Render email cards
   function renderEmails() {
     emailsContainer.innerHTML = '';
     RECIPIENTS.forEach((recipient, index) => {
@@ -405,7 +367,6 @@ The perpetrator uses the name JOYBOY (formerly Escanor). This requires IMMEDIATE
         selectedRecipient = recipient;
         selectedIndicator.style.display = 'block';
         selectedIndicator.innerHTML = `📧 SELECTED: ${recipient.name}<br>✉️ ${recipient.email}`;
-        // Visual feedback
         document.querySelectorAll('.email-card').forEach(c => c.style.background = '#1f0808cc');
         card.style.background = '#3a1510cc';
         card.style.borderLeftColor = '#e88a5a';
@@ -454,7 +415,7 @@ The perpetrator uses the name JOYBOY (formerly Escanor). This requires IMMEDIATE
     showToast('Form reset. Select a recipient to report.', false);
   }
 
-  function sendReport() {
+  function generateAndSend() {
     const phone = phoneInput.value.trim();
     const userMsg = userMessageInput.value.trim();
 
@@ -471,15 +432,16 @@ The perpetrator uses the name JOYBOY (formerly Escanor). This requires IMMEDIATE
       return;
     }
 
-    const phoneRegex = /^[\+\d\s\-\(\)]{5,30}$/;
-    if (!phoneRegex.test(phone)) {
-      showToast('⚠️ Invalid phone number (ex: +237XXXXXXXXX)', true);
+    // FIXED: Better phone validation that accepts +237696079717
+    const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+    const phoneRegex = /^[\+][0-9]{8,20}$|^[0-9]{8,15}$/;
+    if (!phoneRegex.test(cleanPhone) && !phoneRegex.test(phone)) {
+      showToast('⚠️ Invalid phone number (ex: +237696079717 or 0696079717)', true);
       return;
     }
 
-    // Build email body: support message + user's info + user's message
     const supportPart = selectedRecipient.supportMessage;
-    const userPart = `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📞 USER SUBMITTED PHONE NUMBER: ${phone}\n\n📝 USER'S REPORT MESSAGE:\n${userMsg}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nThis report was submitted via JOYBOY Report System. Please investigate urgently.`;
+    const userPart = `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📞 PHONE NUMBER TO REPORT: ${phone}\n\n📝 USER'S MESSAGE:\n${userMsg}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nThis report was submitted via JOYBOY Report System. Please investigate urgently.`;
     
     const fullBody = supportPart + userPart;
     const subject = `[URGENT REPORT] ${selectedRecipient.name} - Phone: ${phone}`;
@@ -488,17 +450,17 @@ The perpetrator uses the name JOYBOY (formerly Escanor). This requires IMMEDIATE
     
     window.location.href = mailtoLink;
     
-    showToast(`📧 Opening email to ${selectedRecipient.name}`, false);
+    showToast(`📧 Opening email to ${selectedRecipient.name} with pre-filled support message`, false);
     
-    sendBtn.innerHTML = "⚡ SENT ⚡";
+    sendBtn.innerHTML = "⚡ REPORT GENERATED ⚡";
     setTimeout(() => {
-      sendBtn.innerHTML = "📧 SEND REPORT";
-    }, 1500);
+      sendBtn.innerHTML = "📧 GENERATE & SEND REPORT";
+    }, 2000);
   }
 
   renderEmails();
   resetBtn.addEventListener('click', resetForm);
-  sendBtn.addEventListener('click', sendReport);
+  sendBtn.addEventListener('click', generateAndSend);
 </script>
 </body>
 </html>
